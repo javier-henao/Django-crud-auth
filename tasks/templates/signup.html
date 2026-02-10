@@ -1,5 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
 <h1><strong>Registrarse</strong></h1>
-<script>alert("{{error}}")</script>
+<h3 style="color: red;">{{error}}</h3>
+{% comment %} <script>alert("{{error}}")</script> {% endcomment %}
 <form action="{% url 'signup'%}" method="post">
     {% csrf_token %}
     {{form.as_p}}
@@ -7,3 +11,4 @@
         Registrarse
     </button>
 </form>
+{% endblock content %}
