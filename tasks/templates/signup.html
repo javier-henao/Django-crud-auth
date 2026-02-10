@@ -1,6 +1,6 @@
 <h1><strong>Registrarse</strong></h1>
-
-<form action="/signup/" method="post">
+<script>alert("{{error}}")</script>
+<form action="{% url 'signup'%}" method="post">
     {% csrf_token %}
     {{form.as_p}}
     <button>
