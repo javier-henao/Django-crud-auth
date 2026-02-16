@@ -3,12 +3,42 @@
 {% block content %}
 <h1>Crear Tarea</h1>
 
+{{error}}
+
 <form action="/tasks/create/" method="POST">
     {% csrf_token %}
 
     {{form}}
 
     <button type="submit">Guardar</button>
+
 </form>
 
 {% endblock content %}
+
+
+{% comment %} {% for field in form %}
+    <p>
+        {{ field.errors }}
+
+        <label for="{{ field.id_for_label }}">
+        {% if field.name == "title" %}
+            Título
+        {% elif field.name == "description" %}
+            Descripción
+        {% elif field.name == "important" %}
+            Importante
+        {% else %}
+            {{ field.label }}
+        {% endif %}
+        </label>
+
+        {{ field }}
+
+        {% if field.help_text %}
+        <span class="helptext">{{ field.help_text|safe }}</span>
+        {% endif %}
+    </p>
+    {% endfor %}
+
+    <button type="submit">Guardar</button> {% endcomment %}

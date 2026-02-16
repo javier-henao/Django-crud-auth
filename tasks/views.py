@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from .forms import TaskForm
-from django.http import HttpResponse
+from .models import Task
+# from django.http import HttpResponse
 
 # Create your views here.
 
@@ -31,7 +32,9 @@ def signup(request):
 
 
 def tasks(request):
-    return render(request, 'tasks.html')
+    # task=Task.objects.all() # Muestra todas las tareas de todos los usuarios
+    task=Task.objects.filter(user=request.user, datecompleted__isnull=True) # Muestra solo las tareas de cada usuario logueado
+    return render(request, 'tasks.html', {'tasks': task})
 
 
 def signout(request):
@@ -46,17 +49,22 @@ def signin(request):
         user = authenticate(
             request, username=request.POST['username'], password=request.POST['password'])
         if user is None:
-            return render(request, 'signin.html', {'form':AuthenticationForm, 'error':'Usuario o contraseña incorrecto'})
+            return render(request, 'signin.html', {'form': AuthenticationForm, 'error': 'Usuario o contraseña incorrecto'})
         else:
             login(request, user)
             return redirect('tasks')
 
 
 def create_task(request):
-    
-    if request.method=='GET':
-        return render(request, 'create_task.html', {'form':TaskForm})
+
+    if request.method == 'GET':
+        return render(request, 'create_task.html', {'form': TaskForm})
     else:
-        print(request.POST)
-        return render(request, 'create_task.html', {'form':TaskForm})
-        
+        try:
+            form = TaskForm(request.POST)
+            new_task = form.save(commit=False)
+            new_task.user = request.user
+            new_task.save()
+            return redirect('tasks')
+        except ValueError:
+            return render(request, 'create_task.html', {'form': TaskForm, 'error': 'Error al crear la tarea'})
