@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from tasks.views import home, signup, tasks, signout, signin, create_task, task_detail
+from tasks.views import home, signup, tasks, signout, signin, create_task, task_detail, complete_task, delete_task
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +27,7 @@ urlpatterns = [
     path('signin/', signin, name='signin'),
     path('tasks/create/', create_task, name='create_task'),
     path('tasks/<int:task_id>/', task_detail, name='task_detail'),
+    path('tasks/<int:task_id>/complete/', complete_task, name='complete_task'),
+    path('tasks/<int:task_id>/delete/', delete_task, name='delete_task'),
     
 ]
