@@ -38,6 +38,11 @@ def tasks(request):
     return render(request, 'tasks.html', {'tasks': task})
 
 
+def tasks_completed(request):
+    task=Task.objects.filter(user=request.user, datecompleted__isnull=False).order_by('-datecompleted') # Muestra solo las tareas de cada usuario logueado
+    return render(request, 'tasks.html', {'tasks': task})
+
+
 def signout(request):
     logout(request)
     return redirect('home')

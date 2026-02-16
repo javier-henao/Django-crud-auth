@@ -8,14 +8,15 @@
   <body>
     <nav>
       <ul>
-        <li><a href="/">Inicio</a></li>
+        <li><a href="{% url 'home' %}">Inicio</a></li>
         {% if user.is_authenticated %}
-        <li><a href="/tasks">Tareas</a></li>
-        <li><a href="/tasks/create">Crear Tarea</a></li>
-        <li><a href="/logout">Salir</a></li>
+        <li><a href="{% url 'tasks' %}">Tareas Pendientes</a></li>
+        <li><a href="{% url 'tasks_completed' %}">Tareas Completadas</a></li>
+        <li><a href="{% url 'create_task' %}">Crear Tarea</a></li>
+        <li><a href="{% url 'logout' %}">Salir</a></li>
         {% else %}
-        <li><a href="/signin">Iniciar Sesión</a></li>
-        <li><a href="/signup">Registrar</a>
+        <li><a href="{% url 'signin' %}">Iniciar Sesión</a></li>
+        <li><a href="{% url 'signup' %}">Registrar</a>
         </li>
         {% endif %}
       </ul>
