@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Inicio</h1>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta sapiente nihil omnis provident nulla, itaque asperiores laboriosam dolores ipsa ab ad impedit, sit odit, eveniet ullam harum. Dicta, facilis laboriosam.</p>
+<main class='container p-5'>
+    <section class="card card-body">
+        <h1 class='display-1 text-center'>Aplicación de Tareas</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta sapiente nihil omnis provident nulla, itaque asperiores laboriosam dolores ipsa ab ad impedit, sit odit, eveniet ullam harum. Dicta, facilis laboriosam.</p>
+        <div class="text-center">
+            <a class="btn btn-secondary" href="{% url 'signin' %}"">Iniciar Sesion</a>
+            <a class="btn btn-dark" href="{% url 'signup' %}"">Registrar</a>
+        </div>
+    </section>
+</main>
 {% endblock content %}
